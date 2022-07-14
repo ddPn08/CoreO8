@@ -1,0 +1,2 @@
+# minecraft plugin template
+Minecraftプラグインのテンプレートリポジトリ。
