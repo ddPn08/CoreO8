@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "run.dn5.sasa"
-version = "1.0"
+version = "1.0-beta.1"
 description = "CoreO8"
 val artifactName =  "${rootProject.name}-${rootProject.version}.jar"
 
