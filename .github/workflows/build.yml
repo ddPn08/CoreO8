@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "src/**/*"
+      - "**/*.kts"
+
 
 jobs:
   build:
