@@ -1,5 +1,0 @@
-name: ${name}
-author: ${author}
-version: ${version}
-description: ${description}
-main: ${group}.${id}.WaterfallPlugin

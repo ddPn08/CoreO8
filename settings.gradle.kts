@@ -1,2 +1,1 @@
-rootProject.name = "template"
-include("paper", "waterfall", "velocity")
+rootProject.name = "CoreO8"

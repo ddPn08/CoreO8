@@ -1,0 +1,18 @@
+name: ${name}
+author: ${author}
+version: ${version}
+description: ${description}
+main: ${group}.${id}.PaperPlugin
+api-version: 1.18
+depend:
+  - SuperVanish
+  - LuckPerms
+commands:
+  coreo8:
+    permission: coreo8.command.coreo8
+    description: "CoreO8 command"
+    usage: /coreo8
+  coreo8ctl:
+    permission: coreo8.command.coreo8ctl
+    description: "CoreO8 config command"
+    usage: /coreo8ctl

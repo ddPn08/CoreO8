@@ -1,29 +1,29 @@
 plugins {
     kotlin("jvm") version("1.6.0")
     id("com.github.johnrengelman.shadow") version "7.1.1"
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.3"
 }
 
-group = "run.dn5"
+group = "run.dn5.sasa"
 version = "1.0"
-description = "テンプレート"
+description = "CoreO8"
 val artifactName =  "${rootProject.name}-${rootProject.version}.jar"
-
-repositories {
-    mavenCentral()
-}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-dependencies {
-    implementation(project(":paper"))
-    implementation(project(":waterfall"))
-    implementation(project(":velocity"))
+repositories {
+    mavenCentral()
+    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://jitpack.io")
 }
 
+dependencies{
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("com.github.LeonMangler:SuperVanish:6.2.7")
+    compileOnly("net.luckperms:api:5.4")
+}
 tasks {
     shadowJar{
         archiveFileName.set(artifactName)
@@ -32,59 +32,27 @@ tasks {
     register("preDebug"){
         dependsOn("clean", "shadowJar")
         doLast {
-            listOf("paper", "waterfall", "velocity").forEach {
-                copy {
-                    from("$buildDir/libs/${artifactName}")
-                    into(".debug/$it/plugins")
-                }
+            copy {
+                from("$buildDir/libs/${artifactName}")
+                into(".debug/plugins")
             }
         }
     }
-}
 
-subprojects {
-    group = parent!!.group
-    version = parent!!.version
-    description = parent!!.description
-
-    apply {
-        plugin("java")
-        plugin("org.jetbrains.kotlin.jvm")
-        plugin("com.github.johnrengelman.shadow")
-        plugin("org.jetbrains.gradle.plugin.idea-ext")
-    }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-
-    dependencies {
-        compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
-    }
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-
-    tasks {
-        processResources {
-            filteringCharset = "UTF-8"
-            filesMatching(listOf("bungee.yml", "plugin.yml")) {
-                expand(mapOf(
-                    "name" to rootProject.name,
-                    "id" to rootProject.name.toLowerCase(),
-                    "group" to project.group,
-                    "version" to project.version,
-                    "description" to project.description,
-                    "author" to "ddPn08"
-                ))
-            }
+    processResources {
+        filteringCharset = "UTF-8"
+        filesMatching("plugin.yml") {
+            expand(mapOf(
+                "name" to rootProject.name,
+                "id" to rootProject.name.toLowerCase(),
+                "group" to project.group,
+                "version" to project.version,
+                "description" to project.description,
+                "author" to "ddPn08"
+            ))
         }
-        compileKotlin {
-            kotlinOptions.jvmTarget = "17"
-        }
+    }
+    compileKotlin {
+        kotlinOptions.jvmTarget = "17"
     }
 }
