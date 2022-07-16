@@ -1,6 +1,7 @@
 package run.dn5.sasa.coreo8
 
 import de.myzelyam.api.vanish.VanishAPI
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -21,7 +22,10 @@ class Manager(
         VanishAPI.hidePlayer(player)
 
         player.gameMode = GameMode.SPECTATOR
-        player.inventory.clear()
+
+        Bukkit.getOnlinePlayers().forEach {
+            if (it.hasPermission("coreo8.command.coreo8")) Prompt.info(it, "${player.name} entered coreo8")
+        }
 
         val config = plugin.config
         config.getStringList("permissions").forEach {
