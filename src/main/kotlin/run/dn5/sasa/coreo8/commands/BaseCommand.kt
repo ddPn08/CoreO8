@@ -11,9 +11,9 @@ open class BaseCommand(
     open val subCommands: List<BaseCommand> = emptyList()
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        if (args.isEmpty()) return this.execute(sender, command, label, args)
+        if (args.isEmpty()) return execute(sender, command, label, args)
         val subCommand =
-            subCommands.find { it.name == args[0] } ?: return this.execute(sender, command, label, args)
+            subCommands.find { it.name == args[0] } ?: return execute(sender, command, label, args)
         return subCommand.onCommand(sender, command, args[0], args.copyOfRange(1, args.size))
     }
 
@@ -23,7 +23,7 @@ open class BaseCommand(
         label: String,
         args: Array<out String>
     ): List<String> {
-        if (args.isEmpty() || args.size == 1) return subCommands.map { it.name } + this.tabComplete(
+        if (args.isEmpty() || args.size == 1) return subCommands.map { it.name } + tabComplete(
             sender,
             command,
             label,
@@ -31,7 +31,7 @@ open class BaseCommand(
         )
 
         val subCommand =
-            subCommands.find { it.name == args[0] } ?: return subCommands.map { it.name } + this.tabComplete(
+            subCommands.find { it.name == args[0] } ?: return subCommands.map { it.name } + tabComplete(
                 sender,
                 command,
                 label,

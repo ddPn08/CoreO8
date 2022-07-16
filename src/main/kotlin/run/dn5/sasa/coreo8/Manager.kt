@@ -23,14 +23,14 @@ class Manager(
         player.gameMode = GameMode.SPECTATOR
         player.inventory.clear()
 
-        val config = this.plugin.config
+        val config = plugin.config
         config.getStringList("permissions").forEach {
             player.addAttachment(plugin, it, true)
         }
     }
 
     fun disable(player: Player) {
-        if (!this.isEnabled(player)) return
+        if (!isEnabled(player)) return
         val data = database[player.uniqueId]!!
 
         VanishAPI.showPlayer(player)
@@ -40,7 +40,7 @@ class Manager(
 
         database.remove(player.uniqueId)
 
-        val config = this.plugin.config
+        val config = plugin.config
         config.getStringList("permissions").forEach {
             val attachment = player.addAttachment(plugin, it, false)
             player.removeAttachment(attachment)

@@ -15,14 +15,14 @@ class PaperPlugin : JavaPlugin() {
 
     override fun onEnable() {
         instance = this
-        this.checkResources()
-        this.registerCommands()
-        this.registerListeners()
+        checkResources()
+        registerCommands()
+        registerListeners()
     }
 
     private fun checkResources() {
-        if (File("${this.dataFolder}/config.yml").exists()) return
-        this.saveDefaultConfig()
+        if (File("${dataFolder}/config.yml").exists()) return
+        saveDefaultConfig()
     }
 
     private fun registerCommands() {
@@ -30,13 +30,13 @@ class PaperPlugin : JavaPlugin() {
             CoreO8(),
             CoreO8Ctl()
         ).forEach {
-            this.getCommand(it.name)?.setExecutor(it)
+            getCommand(it.name)?.setExecutor(it)
         }
     }
 
     private fun registerListeners() {
         listOf(
             PlayerQuitListener(this),
-        ).forEach { this.server.pluginManager.registerEvents(it, this) }
+        ).forEach { server.pluginManager.registerEvents(it, this) }
     }
 }

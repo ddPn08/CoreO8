@@ -10,6 +10,6 @@ class PlayerQuitListener(
 ) : Listener {
     @EventHandler
     fun onPlayerQuit(e: PlayerQuitEvent) {
-        this.plugin.manager.disable(e.player)
+        plugin.manager.disable(e.player)
     }
 }
